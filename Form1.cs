@@ -60,7 +60,7 @@ namespace sunucukontrol
 
             if (!IsValidIpAddress(ipAddress))
             {
-                LogToConsole($"Geçersiz IP Adresi: {ipAddress}");
+                LogToConsole($"GeÃ§ersiz IP Adresi: {ipAddress}");
                 return;
             }
 
@@ -85,7 +85,7 @@ namespace sunucukontrol
         {
             FileHelper.LoadFromFile(ipTextBoxes, descriptionTextBoxes);
 
-            labelStatus.Text = "Hazýr.";
+            labelStatus.Text = "HazÃ½r.";
             richTextBoxConsole.Text = "";
             EnableIpTextBoxes();
 
@@ -103,7 +103,7 @@ namespace sunucukontrol
                 running = true;
                 pingThread = new Thread(new ThreadStart(PingServers));
                 pingThread.Start();
-                labelStatus.Text = "Çalýþýyor...";
+                labelStatus.Text = "Ã‡alÃ½Ã¾Ã½yor...";
                 DisableIpTextBoxes();
             }
         }
@@ -147,12 +147,12 @@ namespace sunucukontrol
 
                     if (!IsValidIpAddress(ipAddress))
                     {
-                        LogToConsole($"Geçersiz IP Adresi: {ipAddress}");
+                        LogToConsole($"GeÃ§ersiz IP Adresi: {ipAddress}");
                         continue;
                     }
 
                     long pingTime = await PingIpAddressInternal(ipAddress, description);
-                    LogToConsole($"Sunucu ({description}, {ipAddress}) PÝNG {pingTime}.");
+                    LogToConsole($"Sunucu ({description}, {ipAddress}) PÃNG {pingTime}.");
                     if (pingTime == -1)
                     {
                         if (serverStatuses[ipAddress])
@@ -161,7 +161,7 @@ namespace sunucukontrol
                             await SendEmail(ipAddress, description, true);
                             serverStatuses[ipAddress] = false;
                             lastOfflineTime[ipAddress] = DateTime.Now;
-                            LogToConsole($"Sunucu ({description}, {ipAddress}) çevrimdýþý durumda.");
+                            LogToConsole($"Sunucu ({description}, {ipAddress}) Ã§evrimdÃ½Ã¾Ã½ durumda.");
                             LogToConsole($"({lastOfflineTime[ipAddress]}, {ipAddress})");
                         }
                         else
@@ -184,7 +184,7 @@ namespace sunucukontrol
                                     lastEmailSentTimes[ipAddress] = now;
                                 }
                                 LogToConsole($"({ipAddress}, {serverOfflineDurations[ipAddress].TotalMinutes})22");
-                                LogToConsole($"Sunucu ({description}, {ipAddress}) uzun süredir çevrimdýþý durumda. Ping Süresi: {pingTime} ms");
+                                LogToConsole($"Sunucu ({description}, {ipAddress}) uzun sÃ¼redir Ã§evrimdÃ½Ã¾Ã½ durumda. Ping SÃ¼resi: {pingTime} ms");
                             }
                             else if (serverOfflineDurations[ipAddress].TotalMinutes >= maxOfflineDurationMinutesLevel3)
                             {
@@ -193,7 +193,7 @@ namespace sunucukontrol
                                     LogToConsole($"({ipAddress}, {serverOfflineDurations[ipAddress].TotalMinutes})33");
                                     await SendEmail(ipAddress, description, false, offlineDuration, pingTime);
                                     lastEmailSentTimes[ipAddress] = now;
-                                    LogToConsole($"Sunucu ({description}, {ipAddress}) çok uzun süredir çevrimdýþý durumda. Ping Süresi: {pingTime} ms");
+                                    LogToConsole($"Sunucu ({description}, {ipAddress}) Ã§ok uzun sÃ¼redir Ã§evrimdÃ½Ã¾Ã½ durumda. Ping SÃ¼resi: {pingTime} ms");
                                     LogToConsole($"({lastOfflineTime[ipAddress]})");
                                 }
                             }
@@ -205,13 +205,13 @@ namespace sunucukontrol
                         if (!serverStatuses[ipAddress])
                         {
                             await SendEmail(ipAddress, description, false, null, pingTime, true);
-                            serverStatuses[ipAddress] = true; // Sunucu tekrar çevrimiçi olduðunda giriþi kaldýr
+                            serverStatuses[ipAddress] = true; // Sunucu tekrar Ã§evrimiÃ§i olduÃ°unda giriÃ¾i kaldÃ½r
                             lastOfflineTime.Remove(ipAddress);
                             serverspecial[ipAddress] = true;
-                            LogToConsole($"Sunucu ({ipAddress}) tekrar çevrimiçi durumda. Ping Süresi: {pingTime} ms");
+                            LogToConsole($"Sunucu ({ipAddress}) tekrar Ã§evrimiÃ§i durumda. Ping SÃ¼resi: {pingTime} ms");
                         }
 
-                        // Sunucu çevrimiçi olduðunda, sözlükten giriþi kaldýr.
+                        // Sunucu Ã§evrimiÃ§i olduÃ°unda, sÃ¶zlÃ¼kten giriÃ¾i kaldÃ½r.
                         if (serverOfflineDurations.ContainsKey(ipAddress))
                         {
                             serverOfflineDurations.Remove(ipAddress);
@@ -240,7 +240,7 @@ namespace sunucukontrol
                 }
                 while (serverspecial[ipAddress] == true && pingTime == -1 && (DateTime.Now - offlineStartTime).TotalSeconds < 30)
                 {
-                    LogToConsole($"Özel Kontrol! Statuses:{serverStatuses[ipAddress]}, {ipAddress}");
+                    LogToConsole($"Ã–zel Kontrol! Statuses:{serverStatuses[ipAddress]}, {ipAddress}");
                     PingReply reply = await ping.SendPingAsync(ipAddress, 2000);
                     if (reply != null && reply.Status == IPStatus.Success)
                     {
@@ -266,31 +266,31 @@ namespace sunucukontrol
 
                 if (isFirstLevel)
                 {
-                    emailSubject = $"{description} Çevrimdýþý Durumda";
-                    emailBody = $"Sunucu ({description}, {ipAddress}) çevrimdýþý durumda (SEVÝYE 1).Sunucuya 60 saniye boyunca ping atýldý fakat cevap alýnamadý. Bu bir anlýk kesinti deðildir! Tarih: {DateTime.Now}\n";
+                    emailSubject = $"{description} Ã‡evrimdÃ½Ã¾Ã½ Durumda";
+                    emailBody = $"Sunucu ({description}, {ipAddress}) Ã§evrimdÃ½Ã¾Ã½ durumda (SEVÃYE 1).Sunucuya 60 saniye boyunca ping atÃ½ldÃ½ fakat cevap alÃ½namadÃ½. Bu bir anlÃ½k kesinti deÃ°ildir! Tarih: {DateTime.Now}\n";
                 }
                 else
                 {
                     if (isServerOnlineNotification)
                     {
-                        emailSubject = $"{description} Tekrar Çevrimiçi Durumda";
-                        emailBody = $"Sunucu ({description}, {ipAddress}) tekrar çevrimiçi durumda. Tarih: {DateTime.Now}\n";
+                        emailSubject = $"{description} Tekrar Ã‡evrimiÃ§i Durumda";
+                        emailBody = $"Sunucu ({description}, {ipAddress}) tekrar Ã§evrimiÃ§i durumda. Tarih: {DateTime.Now}\n";
                     }
                     else
                     {
                         if (offlineDuration != null && offlineDuration.Value.TotalMinutes >= maxOfflineDurationMinutesLevel3)
                         {
-                            emailSubject = $"{description} KRÝTÝK HATA SEVÝYE 3";
-                            emailBody = $"Sunucu ({description}, {ipAddress}) çok uzun süredir çevrimdýþý durumda (SEVÝYE 3).Bu ciddi bir arýzadýr. Lütfen sunucunun POWER(var ise UPS) veya ETHERNET baðlantýlarýný fiziksel olarak kontrol ediniz! Tarih: {DateTime.Now}\n";
+                            emailSubject = $"{description} KRÃTÃK HATA SEVÃYE 3";
+                            emailBody = $"Sunucu ({description}, {ipAddress}) Ã§ok uzun sÃ¼redir Ã§evrimdÃ½Ã¾Ã½ durumda (SEVÃYE 3).Bu ciddi bir arÃ½zadÃ½r. LÃ¼tfen sunucunun POWER(var ise UPS) veya ETHERNET baÃ°lantÃ½larÃ½nÃ½ fiziksel olarak kontrol ediniz! Tarih: {DateTime.Now}\n";
                         }
                         else
                         {
-                            emailSubject = $"{description}HATA SEVÝYE 2";
-                            emailBody = $"Sunucu ({description}, {ipAddress}) uzun süredir çevrimdýþý durumda (SEVÝYE 2). Sunucuya 5 dakikadir ulaþýlamýyor lütfen gerekli kontrolleri yapýnýz!  Tarih: {DateTime.Now}\n";
+                            emailSubject = $"{description}HATA SEVÃYE 2";
+                            emailBody = $"Sunucu ({description}, {ipAddress}) uzun sÃ¼redir Ã§evrimdÃ½Ã¾Ã½ durumda (SEVÃYE 2). Sunucuya 5 dakikadir ulaÃ¾Ã½lamÃ½yor lÃ¼tfen gerekli kontrolleri yapÃ½nÃ½z!  Tarih: {DateTime.Now}\n";
                         }
                         if (pingTime >= 0)
                         {
-                            emailBody += $"Ping Süresi: {pingTime} ms\n";
+                            emailBody += $"Ping SÃ¼resi: {pingTime} ms\n";
                         }
                     }
                 }
@@ -303,8 +303,6 @@ namespace sunucukontrol
                 MailMessage mailMessage = new MailMessage();
                 mailMessage.From = new MailAddress(senderEmail);
                 mailMessage.To.Add(recipientEmail);
-                // mailMessage.To.Add(new MailAddress("ahmet.ayardi@noil.com.tr"));
-                // mailMessage.To.Add(new MailAddress("engin.aksu@noil.com.tr"));
                 mailMessage.Subject = emailSubject;
                 mailMessage.Body = emailBody;
 
@@ -312,16 +310,16 @@ namespace sunucukontrol
 
                 if (isServerOnlineNotification)
                 {
-                    LogToConsole("Sunucu tekrar çevrimiçi durumda.");
+                    LogToConsole("Sunucu tekrar Ã§evrimiÃ§i durumda.");
                 }
                 else
                 {
-                    LogToConsole("E-posta gönderildi.");
+                    LogToConsole("E-posta gÃ¶nderildi.");
                 }
             }
             catch (Exception ex)
             {
-                LogToConsole("E-posta gönderilirken bir hata oluþtu: " + ex.Message);
+                LogToConsole("E-posta gÃ¶nderilirken bir hata oluÃ¾tu: " + ex.Message);
             }
         }
 
