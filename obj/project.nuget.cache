@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "sELAQHLRx8w=",
+  "success": true,
+  "projectFilePath": "C:\\Users\\MustafaUgurCEYLAN\\Desktop\\Projelerim\\Yedekler\\sunucukontrol - v3 sonsürüm\\sunucukontrol\\sunucukontrol.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\MustafaUgurCEYLAN\\.nuget\\packages\\system.codedom\\7.0.0\\system.codedom.7.0.0.nupkg.sha512",
+    "C:\\Users\\MustafaUgurCEYLAN\\.nuget\\packages\\system.management\\7.0.2\\system.management.7.0.2.nupkg.sha512"
+  ],
+  "logs": []
+}
